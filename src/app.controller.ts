@@ -1,12 +1,24 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  index() {
+    return { data: 'Homepage data' };
+  }
+
+  @Get('/feature1')
+  firstFeature() {
+    return { data: 'Feature 1 data' };
+  }
+
+  @Get('/feature2')
+  secondFeature() {
+    return { data: 'Feature 2 data' };
+  }
+
+  @Get('/feature3')
+  thirdFeature() {
+    return { data: 'Feature 3 data' };
   }
 }
