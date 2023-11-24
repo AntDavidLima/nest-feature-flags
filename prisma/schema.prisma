@@ -20,6 +20,8 @@ model Feature {
   id             BigInt           @id @default(autoincrement())
   name           String           @unique
   CompanyFeature CompanyFeature[]
+  dependencies   Dependency[]     @relation("dependencies")
+  dependents     Dependency[]     @relation("dependents")
 }
 
 model User {
@@ -35,4 +37,13 @@ model CompanyFeature {
   companyId BigInt
 
   @@id([featureId, companyId])
+}
+
+model Dependency {
+  dependency   Feature @relation("dependencies", fields: [dependencyId], references: [id])
+  dependent    Feature @relation("dependents", fields: [dependentId], references: [id])
+  dependencyId BigInt
+  dependentId  BigInt
+
+  @@id([dependencyId, dependentId])
 }
