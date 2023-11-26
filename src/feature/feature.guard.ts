@@ -17,16 +17,20 @@ export class FeatureGuard implements CanActivate {
     const user = await this.prismaService.user.findUnique({
       where: { id: userId },
       include: {
-        company: true,
+        unity: true,
       },
     });
 
-    const userCompanyFeatures = await this.prismaService.company.findUnique({
-      where: { id: user.company.id },
+    const userUnityFeatures = await this.prismaService.unity.findUnique({
+      where: { id: user.unity.id },
       include: {
-        CompanyFeature: {
+        UnityCompanyFeature: {
           include: {
-            feature: true,
+            companyFeature: {
+              include: {
+                feature: true,
+              },
+            },
           },
         },
       },
@@ -37,12 +41,13 @@ export class FeatureGuard implements CanActivate {
       context.getHandler() || context.getClass(),
     );
 
-    const feature = userCompanyFeatures.CompanyFeature.filter(
-      (companyFeature) => companyFeature.feature.name === featureName,
+    const feature = userUnityFeatures.UnityCompanyFeature.filter(
+      (unityCompanyFeature) =>
+        unityCompanyFeature.companyFeature.feature.name === featureName,
     );
 
-    const companyHasFeature = feature.length > 0;
+    const unityHasFeature = feature.length > 0;
 
-    return companyHasFeature;
+    return unityHasFeature;
   }
 }
