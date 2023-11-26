@@ -4,7 +4,7 @@ import { Features } from './feature.interface';
 
 export const Feature = (feature: Features) => {
   return applyDecorators(
-    SetMetadata('feature', feature),
+    SetMetadata('feature/featureName', feature),
     UseGuards(FeatureGuard),
   );
 };
