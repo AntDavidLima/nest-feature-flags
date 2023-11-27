@@ -8,4 +8,4 @@ import { PrismaService } from 'src/prisma/prisma.service';
   controllers: [FeatureController],
   exports: [FeatureService],
 })
-export class FeatureModule { }
+export class FeatureModule {}

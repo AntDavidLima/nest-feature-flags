@@ -8,4 +8,4 @@ import { FeatureModule } from './feature/feature.module';
   controllers: [AppController],
   providers: [PrismaService],
 })
-export class AppModule { }
+export class AppModule {}

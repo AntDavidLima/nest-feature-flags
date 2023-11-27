@@ -4,7 +4,7 @@ import { Features } from './feature.interface';
 
 @Injectable()
 export class FeatureService {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   async getUserFeatures(userId: bigint) {
     const user = await this.prismaService.user.findUnique({
