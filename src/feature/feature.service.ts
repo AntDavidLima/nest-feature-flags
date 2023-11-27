@@ -6,7 +6,7 @@ import { Features } from './feature.interface';
 export class FeatureService {
   constructor(private readonly prismaService: PrismaService) { }
 
-  async userHasFeature(userId: bigint, featureName: Features) {
+  async getUserFeatures(userId: bigint) {
     const user = await this.prismaService.user.findUnique({
       where: { id: userId },
       include: {
@@ -29,9 +29,18 @@ export class FeatureService {
       },
     });
 
-    const feature = userUnityFeatures.UnityCompanyFeature.filter(
-      (unityCompanyFeature) =>
-        unityCompanyFeature.companyFeature.feature.name === featureName,
+    const features = userUnityFeatures.UnityCompanyFeature.map(
+      (feature) => feature.companyFeature.feature.name,
+    );
+
+    return features;
+  }
+
+  async userHasFeature(userId: bigint, featureName: Features) {
+    const unityFeatures = await this.getUserFeatures(userId);
+
+    const feature = unityFeatures.filter(
+      (unityFeature) => unityFeature === featureName,
     );
 
     const unityHasFeature = feature.length > 0;

@@ -9,19 +9,19 @@ export class AppController {
     return { data: 'Homepage data' };
   }
 
-  @Get('/feature1')
+  @Get('feature1')
   @Feature(Features.FEATURE_1)
   firstFeature() {
     return { data: 'Feature 1 data' };
   }
 
-  @Get('/feature2')
+  @Get('feature2')
   @Feature(Features.FEATURE_2)
   secondFeature() {
     return { data: 'Feature 2 data' };
   }
 
-  @Get('/feature3')
+  @Get('feature3')
   @Feature(Features.FEATURE_3)
   thirdFeature() {
     return { data: 'Feature 3 data' };
